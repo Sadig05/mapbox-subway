@@ -1,0 +1,8 @@
+.btn-cluster{
+  background-color: green;
+  color: yellow;
+  border: none;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
