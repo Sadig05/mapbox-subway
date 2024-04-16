@@ -38,17 +38,21 @@ const CustomMarker = ({ lon, lat, count, item, leaves }: IProps) => {
    
   }
   const child = useMemo(() => {
-    if(!count){
-      <FaMapMarkerAlt size ={30}  />
+    if (!count) {
+      return (
+        <button className="btn-cluster-yellow" onClick={() => setShowPopup(item)}>
+          <Center height={30}><FaMapMarkerAlt size={30} style={{color: 'yellow'}} /></Center>
+        </button>
+      );
     }
+    
     return (
-      <button className="btn-cluster"
-      onClick={() => setShowPopup(item)}
-    >
-      <Center height={30}>{count ? `${count} ` : <FaMapMarkerAlt   size={30}/>}</Center>
-    </button>
+      <button className="btn-cluster" onClick={() => setShowPopup(item)}>
+        <Center height={30}>{count ? `${count} ` : <FaMapMarkerAlt size={30} style={{color: 'yellow'}} />}</Center>
+      </button>
     );
-  }, [lon, lat]);
+  }, [count, lon, lat, setShowPopup, item]);
+  
   return (
     <Marker longitude={lon} latitude={lat}>
       {child}
@@ -60,8 +64,9 @@ const CustomMarker = ({ lon, lat, count, item, leaves }: IProps) => {
            onOpen={() => setShowPopup(item)}
            onClose={() => setShowPopup(null)}
            closeOnClick={false}
+           className="custom-popup"
          >
-           <>{count ? <><FaArrowLeft size = {20} onClick = {decrement}/> <FaArrowRight size = {20} onClick ={increment} /> </> : <></> }</>
+           <>{count ? <><FaArrowLeft size = {16} onClick = {decrement}/> <FaArrowRight size = {16} onClick ={increment} /> </> : <></> }</>
            <div>{count? leaves[index]?.properties?.name : item.properties.name}</div>
            <div>{count ? leaves[index]?.properties?.city : item.properties.city}</div>
            <div>{count ?  `${index+1}/${leaves.length}` : item.properties.street_address}</div>

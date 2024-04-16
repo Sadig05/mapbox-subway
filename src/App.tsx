@@ -8,8 +8,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { Box, Center } from "@chakra-ui/react";
 import data from "./db.json";
 import CustomMarker from "./CustomMarker";
-const token =
-  "pk.eyJ1IjoicXJ0cG91bmRjaGVlc2UiLCJhIjoiY2w2ZTZ5YmJ0MDc2OTNicDVvaHd3YjVvMCJ9.cdoOOFa_7KBZtXVPgxfWnA";
+const token =import.meta.env.VITE_APP_MAPBOX_TOKEN;
 
 export interface IData {
   [x: string]: any;
@@ -94,31 +93,42 @@ function App() {
   }, [bounds, zoom]);
 
   return (
-    <Map
-      initialViewState={{
-        longitude: -100,
-        latitude: 40,
-        zoom: 3,
-      }}
-      onZoomEnd={(e) => {
-        setZoom(e.target.getZoom());
-        setBounds(e.target.getBounds());
-      }}
-      onDragEnd={(e) => {
-        setZoom(e.target.getZoom());
-        setBounds(e.target.getBounds());
-      }}
-      onLoad={(e) => {
-        setZoom(e.target.getZoom());
-        setBounds(e.target.getBounds());
-      }}
-      // onZoom={handleChange}
-      style={{ width: "100vw", height: "100vh" }}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
-      mapboxAccessToken={token}
-    >
-      {Cluster}
-    </Map>
+    <div className="app-container">
+      <div className="info-container">
+        <h1 className="info-title">Discover Subway Restaurants Across America</h1>
+        <p className="info-text">
+          Explore the vast network of Subway restaurants across America with our interactive map. Whether you're craving a classic sub or want to try their latest creations, Subway has something for everyone.
+        </p>
+      </div>
+      <div className="map-container">
+        <Map
+          initialViewState={{
+            longitude: -100,
+            latitude: 40,
+            zoom: 3,
+          }}
+          onZoomEnd={(e) => {
+            setZoom(e.target.getZoom());
+            setBounds(e.target.getBounds());
+          }}
+          onDragEnd={(e) => {
+            setZoom(e.target.getZoom());
+            setBounds(e.target.getBounds());
+          }}
+          onLoad={(e) => {
+            setZoom(e.target.getZoom());
+            setBounds(e.target.getBounds());
+          }}
+          // onZoom={handleChange}
+          style={{ width: "100%", height: "80vh" }}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          mapboxAccessToken={token}
+        >
+          {Cluster}
+        </Map>
+      </div>
+      <div className="footer">© 2024 Nippon. All rights reserved.</div>
+    </div>
   );
 }
 
